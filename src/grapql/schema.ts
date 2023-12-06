@@ -11,6 +11,7 @@ export const typeDefs = `#graphql
   type User {
     id: ID!
     email: String!
+    name: String!
     createdAt: String!
     profile: Profile
     posts: [Post]
@@ -29,4 +30,14 @@ export const typeDefs = `#graphql
     posts: [Post]
     post(id: ID!): Post
   }
+
+  type Mutation {
+    signUp(name:String, email:String, password:String):User
+    login(email:String password:String):UserArgs
+  }
+  type UserArgs {
+    token:String
+  }
+
+
 `;
