@@ -32,11 +32,21 @@ export const typeDefs = `#graphql
   }
 
   type Mutation {
-    signUp(name:String, email:String, password:String):User
+    signUp(name:String, email:String, password:String):signupArgs
     login(email:String password:String):UserArgs
+    post( title: String!
+      authorId: String!
+      content: String!
+      published: Boolean!
+      ):Post
   }
   type UserArgs {
     token:String
+    error:String
+  }
+  type signupArgs {
+    user:User
+    error:String
   }
 
 
