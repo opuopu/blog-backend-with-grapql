@@ -19,12 +19,23 @@ export const authQuery  = {
            })
            return result
      },
-     profile:async(parent:any,args:any,{prisma}:any)=>{
+     profile:async(parent:any,args:any,{prisma,userId}:any)=>{
+        console.log(userId)
+        if(!userId){
+            return{
+                error:"userId Not Found",
+                profile:null
+            }
+        }
          const result  = await prisma.profile.findUnique({
          where:{
-             id:args?.id
+             userId:userId
          }
          })
-         return result
+
+         return {
+            error:null,
+            profile:result
+         }
      },
 }

@@ -3,6 +3,7 @@ export const typeDefs = `#graphql
     id: ID!
     title: String!
     authorId: String!
+    author:User
     content: String!
     createdAt: String!
     published: Boolean!
@@ -20,15 +21,20 @@ export const typeDefs = `#graphql
   type Profile {
     id: ID!
     userId: String!
+    user:User
     createdAt: String!
   }
 
   type Query {
     users: [User]
     user(id: ID!): User
-    profile(id: ID!): Profile
+    profile(userId: ID!): profileArgs
     posts: [Post]
     post(id: ID!): Post
+  }
+  type profileArgs{
+    error:String,
+    profile:Profile
   }
 
   type Mutation {

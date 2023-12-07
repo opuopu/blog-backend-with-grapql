@@ -17,10 +17,14 @@ import JwtHelper from './jwthelpers/jwthelpers';
     const { url } = await startStandaloneServer(server, {
         listen: { port: 4000 },
         context:async({req}):Promise<context>=>{
-          const jwt = new JwtHelper(req.headers.authorization!,'secret2023')
+          let jwt;
+          if(req.headers.authorization){
+           jwt =  new JwtHelper(req.headers.authorization,'secret2023')
+
+          }
     
-          const userData  = await jwt.verifyToken()
-  
+          const userData  = await jwt?.verifyToken()
+  console.log(userData)
           return  {prisma,userId:userData?.userId}
         }
       });
