@@ -54,9 +54,11 @@ export const Mutation ={
 
 
     // post part
-    post:async(parent:any,args:any,{prisma}:any)=>{
+    post:async(parent:any,args:any,{prisma,userId}:any)=>{
+        console.log(userId)
+        const copyArgs = {...args,authorId:userId}
            const result  = await prisma.post.create({
-            data:args
+            data:copyArgs
            })
            return result
     }

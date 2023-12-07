@@ -9,5 +9,6 @@ export type  UserResolverType ={
 }
 
 export interface context {
-    prisma:PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>
+    prisma:PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>,
+    userId?:String
 }

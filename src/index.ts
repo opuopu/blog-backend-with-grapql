@@ -5,6 +5,7 @@ import { resolvers } from './grapql/resolvers';
 import { prisma } from './prismaClient';
 import { context } from './types';
 import { PrismaClient } from '@prisma/client';
+import JwtHelper from './jwthelpers/jwthelpers';
 
 
 
@@ -15,8 +16,12 @@ import { PrismaClient } from '@prisma/client';
     });
     const { url } = await startStandaloneServer(server, {
         listen: { port: 4000 },
-        context:async():Promise<context>=>{
-          return  {prisma}
+        context:async({req}):Promise<context>=>{
+          const jwt = new JwtHelper(req.headers.authorization!,'secret2023')
+    
+          const userData  = await jwt.verifyToken()
+  
+          return  {prisma,userId:userData?.userId}
         }
       });
       console.log(`🚀  Server ready at: ${url}`);

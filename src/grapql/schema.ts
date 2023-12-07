@@ -35,7 +35,7 @@ export const typeDefs = `#graphql
     signUp(name:String, email:String, password:String):signupArgs
     login(email:String password:String):UserArgs
     post( title: String!
-      authorId: String!
+      authorId: String
       content: String!
       published: Boolean!
       ):Post
