@@ -1,5 +1,6 @@
 export const postQuery = {
     posts:async(parent:any,args:any,{prisma}:any)=>{
+        console.log("hitted")
         const result  =  await prisma.post.findMany({})
         return result
     },

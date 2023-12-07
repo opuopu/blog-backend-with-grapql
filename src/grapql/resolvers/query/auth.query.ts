@@ -1,5 +1,8 @@
+import { context } from "../../../types"
+
 export const authQuery  = {
     users:async(parent:any,args:any,{prisma}:any)=>{
+        console.log("auth hitted")
         const result  =  await prisma.user.findMany({
          include:{
              posts:true,
@@ -8,28 +11,31 @@ export const authQuery  = {
         })
         return result 
      },
-     user:async(parent:any,args:any,{prisma}:any)=>{
+     user:async(parent:any,args:any,{prisma,userId}:context)=>{
+ if(!userId){
+    return{
+        error:"you are not authorized",
+        user:null
+    }
+ }
            const result  = await prisma.user.findFirst({
              where:{
-                 id:args.id
+                 id:userId as string
              },
              include:{
                  profile:true
              }
            })
-           return result
+           return {
+            error:null,
+            user:result
+           }
      },
      profile:async(parent:any,args:any,{prisma,userId}:any)=>{
-        console.log(userId)
-        if(!userId){
-            return{
-                error:"userId Not Found",
-                profile:null
-            }
-        }
+    
          const result  = await prisma.profile.findUnique({
          where:{
-             userId:userId
+             userId:args.userId
          }
          })
 

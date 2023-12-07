@@ -27,7 +27,7 @@ export const typeDefs = `#graphql
 
   type Query {
     users: [User]
-    user(id: ID!): User
+    user(id: ID!): userInformationArgs
     profile(userId: ID!): profileArgs
     posts: [Post]
     post(id: ID!): Post
@@ -61,6 +61,10 @@ export const typeDefs = `#graphql
     content: String
     published: Boolean
   }
+ type userInformationArgs{
+  user:User
+  error:String
+ }
   type UserArgs {
     token:String
     error:String

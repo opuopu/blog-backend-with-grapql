@@ -20,11 +20,9 @@ import JwtHelper from './jwthelpers/jwthelpers';
           let jwt;
           if(req.headers.authorization){
            jwt =  new JwtHelper(req.headers.authorization,'secret2023')
-
           }
-    
+
           const userData  = await jwt?.verifyToken()
-  console.log(userData)
           return  {prisma,userId:userData?.userId}
         }
       });
