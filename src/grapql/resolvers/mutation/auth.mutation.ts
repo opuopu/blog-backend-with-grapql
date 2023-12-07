@@ -4,7 +4,8 @@ import { isUserExist } from "../../../utiles/checkExistUser"
 
 export const authMutation  = {
     signUp: async(parent:any,args:UserResolverType,{prisma}:any)=>{
-        const isExistUser  = await isUserExist(args?.email)
+        const {name,email,password} = args?.content
+        const isExistUser  = await isUserExist(email)
         if(isExistUser){
         return {
             error:"user already exist with this email!",
@@ -13,7 +14,7 @@ export const authMutation  = {
         }
         }
        const result  =  await prisma.user.create({
-        data:args
+        data:args.content
        })
        if(!result){
     return{
